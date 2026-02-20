@@ -1,0 +1,21 @@
+{
+  "name": "TimeSnap",
+  "short_name": "TimeSnap",
+  "description": "Beautiful timer, chronometer, and clock application",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#C45CA8",
+  "theme_color": "#C45CA8",
+  "icons": [
+    {
+      "src": "assets/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

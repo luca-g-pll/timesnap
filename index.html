@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>TimeSnap</title>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Playfair+Display:wght@900&family=Orbitron:wght@700&family=Roboto+Mono:wght@700&family=Share+Tech+Mono&family=Anton&family=Bebas+Neue&family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="background-layer">
+<img id="backgroundImage" class="background-image" src="" alt="">
+<div class="black-overlay" id="blackOverlay"></div>
+</div>
+<div class="container" id="mainContainer">
+<header>
+<div class="logo">TimeSnap</div>
+<div class="mode-toggle">
+<button class="mode-btn active" data-mode="timer">Timer</button>
+<button class="mode-btn" data-mode="stopwatch">Chrono</button>
+<button class="mode-btn" data-mode="clock">Clock</button>
+</div>
+</header>
+<div class="timer-section">
+<div class="timer-content-wrapper">
+<div id="timerDisplay" class="timer-display">00:20:00</div>
+<div class="controls">
+<button class="control-btn primary" id="startBtn">Start</button>
+<button class="control-btn" id="pauseBtn" style="display:none">Pause</button>
+<button class="control-btn" id="resetBtn">Reset</button>
+</div>
+<button class="settings-toggle-btn" id="settingsToggleBtn">⚙️ Timer Settings</button>
+</div>
+<div class="settings-panel" id="settingsPanel" style="display:none">
+<h3>Timer Settings</h3>
+<div class="setting-group" id="timerSettings">
+<label>Set Time</label>
+<div class="time-inputs">
+<div class="time-input-wrapper"><label>Hours</label><input type="number" id="hoursInput" min="0" max="23" value="0"></div>
+<div class="time-input-wrapper"><label>Min</label><input type="number" id="minutesInput" min="0" max="59" value="20"></div>
+<div class="time-input-wrapper"><label>Sec</label><input type="number" id="secondsInput" min="0" max="59" value="0"></div>
+</div>
+</div>
+<div class="setting-group" id="clockSettings" style="display:none">
+<label>Clock Format</label>
+<select id="clockFormatSelect" class="custom-select">
+<option value="time">Time Only</option>
+<option value="time-date">Time + Date</option>
+<option value="time-date-day">Time + Date + Day</option>
+</select>
+</div>
+<div class="setting-group">
+<label>Display Font</label>
+<select id="fontSelect" class="custom-select">
+<option value="'JetBrains Mono',monospace">JetBrains Mono (Default)</option>
+<option value="'Orbitron',sans-serif">Orbitron (Futuristic)</option>
+<option value="'Courier New',monospace">Courier New (Classic)</option>
+<option value="'Roboto Mono',monospace">Roboto Mono (Clean)</option>
+<option value="'Share Tech Mono',monospace">Share Tech Mono (Tech)</option>
+<option value="'Anton',sans-serif">Anton (Bold)</option>
+<option value="'Bebas Neue',sans-serif">Bebas Neue (Impact)</option>
+<option value="'Audiowide',sans-serif">Audiowide (Digital)</option>
+<option value="'Impact',sans-serif">Impact (Strong)</option>
+<option value="'Arial Black',sans-serif">Arial Black (Heavy)</option>
+<option value="'Verdana',sans-serif">Verdana (Round)</option>
+<option value="'Georgia',serif">Georgia (Elegant)</option>
+<option value="'Times New Roman',serif">Times New Roman (Classic)</option>
+<option value="'Comic Sans MS',cursive">Comic Sans (Fun)</option>
+</select>
+</div>
+<div class="setting-group">
+<label>Display Color</label>
+<div class="color-selection">
+<div class="color-option active" data-color="#000000" style="background:#000"></div>
+<div class="color-option" data-color="#ff0000" style="background:#ff0000"></div>
+<div class="color-option" data-color="#43e97b" style="background:#43e97b"></div>
+<div class="color-option" data-color="#f093fb" style="background:#f093fb"></div>
+<div class="color-option" data-color="#ffffff" style="background:#fff"></div>
+<div class="color-option" data-color="#ffd700" style="background:#ffd700"></div>
+<label class="color-picker-btn" for="customColorPicker"><input type="color" id="customColorPicker" value="#000000"><span>+</span></label>
+</div>
+</div>
+<div class="setting-group">
+<label>Glow Effect</label>
+<div class="glow-controls">
+<div class="toggle-wrapper">
+<input type="checkbox" id="glowToggle" class="toggle-checkbox">
+<label for="glowToggle" class="toggle-label"><div class="toggle-switch"></div></label>
+</div>
+</div>
+<div id="glowSettings" style="display:none">
+<label>Glow Intensity <span id="glowIntensityValue">50</span>%</label>
+<input type="range" id="glowIntensity" min="0" max="100" value="50" style="width:100%;margin-top:.5rem">
+<label style="margin-top:1rem">Glow Color</label>
+<div class="color-selection" style="margin-top:.5rem">
+<div class="glow-color-option active" data-glow="#000000" style="background:#000"></div>
+<div class="glow-color-option" data-glow="#ff0000" style="background:#ff0000"></div>
+<div class="glow-color-option" data-glow="#43e97b" style="background:#43e97b"></div>
+<div class="glow-color-option" data-glow="#f093fb" style="background:#f093fb"></div>
+<div class="glow-color-option" data-glow="#ffffff" style="background:#fff"></div>
+<div class="glow-color-option" data-glow="#ffd700" style="background:#ffd700"></div>
+<label class="color-picker-btn" for="customGlowPicker"><input type="color" id="customGlowPicker" value="#000000"><span>+</span></label>
+</div>
+</div>
+</div>
+<div class="setting-group">
+<label>Background Color</label>
+<div class="color-selection">
+<div class="bg-color-option active" data-bgcolor="#C45CA8" style="background:#C45CA8"></div>
+<div class="bg-color-option" data-bgcolor="#000000" style="background:#000"></div>
+<div class="bg-color-option" data-bgcolor="#ff0000" style="background:#ff0000"></div>
+<div class="bg-color-option" data-bgcolor="#43e97b" style="background:#43e97b"></div>
+<div class="bg-color-option" data-bgcolor="#f093fb" style="background:#f093fb"></div>
+<div class="bg-color-option" data-bgcolor="#ffffff" style="background:#fff"></div>
+<label class="color-picker-btn" for="customBgColorPicker"><input type="color" id="customBgColorPicker" value="#C45CA8"><span>+</span></label>
+</div>
+</div>
+<div class="setting-group">
+<label>Background Opacity</label>
+<input type="range" id="bgOpacity" class="opacity-slider" min="0" max="100" value="0">
+<div class="opacity-value"><span id="opacityValue">0</span>%</div>
+</div>
+<div class="setting-group">
+<label>Upload Image</label>
+<div class="image-upload-container">
+<label for="fileUpload" class="image-upload-btn">
+<div class="upload-icon">📁</div>
+<div class="upload-text">Choose Image</div>
+</label>
+<input type="file" id="fileUpload" accept="image/*">
+</div>
+</div>
+<div class="setting-group">
+<label>Small Clock Display</label>
+<div class="toggle-wrapper">
+<input type="checkbox" id="clockToggle" class="toggle-checkbox">
+<label for="clockToggle" class="toggle-label"><div class="toggle-switch"></div></label>
+</div>
+</div>
+<div class="setting-group">
+<label>Show Milliseconds</label>
+<div class="toggle-wrapper">
+<input type="checkbox" id="millisecondsToggle" class="toggle-checkbox">
+<label for="millisecondsToggle" class="toggle-label"><div class="toggle-switch"></div></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="clock-display" id="clockDisplay">00:00:00</div>
+<div class="footer-text">For the people that want change the background of their time - LU</div>
+<button class="fullscreen-btn" id="fullscreenBtn" title="Fullscreen Mode">⛶</button>
+<script src="js/app.js"></script>
+</body>
+</html>
