@@ -157,4 +157,4 @@ All files are well-commented for easy understanding.
 
 ---
 
-**Made with ⏱️ by LU**
+**Made by LU**
